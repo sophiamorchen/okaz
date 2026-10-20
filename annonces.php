@@ -2,7 +2,7 @@
 require_once __DIR__ . "/templates/header.php";
 require_once __DIR__ . "/libs/listings.php";
 
-$listings = getListings();
+$listings = getListings($pdo);
 
 ?>
 <div class="row">
@@ -34,7 +34,7 @@ $listings = getListings();
     <div class="col-md-9">
         <div class="row">
             <?php foreach ($listings as $key => $listing) { ?>
-            <?php require __DIR__ .  "/templates/listing_part.php" ?>
+                <?php require __DIR__ .  "/templates/listing_part.php" ?>
             <?php } ?>
         </div>
 

@@ -5,7 +5,7 @@ require __DIR__ . '/libs/listings.php';
 require __DIR__ . '/libs/categories.php';
 
 
-$listings = getListings();
+$listings = getListings($pdo);
 $categories = getCategories();
 
 

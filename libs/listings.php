@@ -1,17 +1,24 @@
 <?php
+require_once __DIR__ . "/pdo.php";
 
-function getListings(): array
+
+function getListings(PDO $pdo): array
 {
-    return [
-        ["titre" => "rocket-league", "price" => "30", "image" => "rocket-league.jpg", "description" => "test description"],
-        ["titre" => "rocket-league", "price" => "25", "image" => "rocket-league.jpg", "description" => "test description"],
-        ["titre" => "rocket-league", "price" => "28", "image" => "rocket-league.jpg", "description" => "test description"]
-    ];
+    $sql = "SELECT listing.id, listing.title, listing.description, listing.image, listing.price 
+            FROM listing";
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
 
-function getListingById(int $id): array
+function getListingById(PDO $pdo, int $id): array|bool
 {
-    $listing = getListings();
-    return $listing[$id];
+    $sql = "SELECT listing.id, listing.title, listing.description, listing.image, listing.price 
+            FROM listing
+            WHERE listing.id = :id";
+    $query = $pdo->prepare($sql);
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    return $query->fetch(PDO::FETCH_ASSOC);
 }
